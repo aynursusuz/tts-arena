@@ -37,27 +37,19 @@ The open-source TTS landscape has exploded — there are now **40+ models** acro
 
 ### Audio Samples
 
-The following samples were generated from the same input text:
+All samples generated from the same input text:
 
 > *"Artificial intelligence has made remarkable progress in speech synthesis. Modern text to speech systems can now produce speech that is nearly indistinguishable from human recordings."*
 
-#### Kokoro (82M params, RTF 0.104)
+#### Kokoro (82M params — RTF 0.104 — 574 MB VRAM)
 
-https://github.com/user-attachments/assets/kokoro-placeholder
+https://github.com/aynursusuz/tts-arena/raw/main/benchmarks/audio_samples/kokoro_benchmark.mp4
 
-<audio controls src="benchmarks/audio_samples/kokoro_benchmark.wav"></audio>
+#### Bark (~1B params — RTF 0.966 — 4,279 MB VRAM)
 
-[Download kokoro_benchmark.wav](benchmarks/audio_samples/kokoro_benchmark.wav)
+https://github.com/aynursusuz/tts-arena/raw/main/benchmarks/audio_samples/bark_benchmark.mp4
 
-#### Bark (~1B params, RTF 0.966)
-
-https://github.com/user-attachments/assets/bark-placeholder
-
-<audio controls src="benchmarks/audio_samples/bark_benchmark.wav"></audio>
-
-[Download bark_benchmark.wav](benchmarks/audio_samples/bark_benchmark.wav)
-
-> More audio samples will be added as engines are tested.
+> More samples will be added as engines are tested.
 
 ## Supported Engines
 

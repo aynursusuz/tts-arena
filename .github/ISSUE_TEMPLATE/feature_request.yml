@@ -1,0 +1,30 @@
+name: Feature Request
+description: Request a new feature or TTS engine
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Request Type
+      options:
+        - New TTS engine support
+        - Benchmark improvement
+        - CLI feature
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature you'd like
+    validations:
+      required: true
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Use Case
+      description: Why would this be useful?
+    validations:
+      required: true

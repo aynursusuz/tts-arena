@@ -31,8 +31,8 @@ htmlcov/
 .mypy_cache/
 
 # Audio outputs (keep structure, ignore generated files)
-benchmarks/audio_samples/*.wav
 benchmarks/results/*.json
+!benchmarks/results/benchmark_latest.json
 !benchmarks/results/.gitkeep
 !benchmarks/audio_samples/.gitkeep
 

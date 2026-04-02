@@ -25,25 +25,53 @@ The open-source TTS landscape has exploded — there are now **40+ models** acro
 
 ## Benchmark Results
 
-> Results measured on NVIDIA H100 PCIe (81GB) with CUDA 12.2, Python 3.12
+> Measured on NVIDIA H100 PCIe (81GB), CUDA 12.2, Python 3.12. RTF = Real-Time Factor (lower is faster).
 
-| Engine | RTF | Inference (s) | VRAM (MB) | Sample Rate | Voice Clone | Languages | Status |
-|--------|-----|---------------|-----------|-------------|-------------|-----------|--------|
-| *Testing in progress...* | | | | | | | |
+| Engine | Params | RTF | Inference (s) | Audio (s) | VRAM (MB) | Voice Clone | Languages | License |
+|--------|--------|-----|---------------|-----------|-----------|-------------|-----------|---------|
+| **Kokoro** | 82M | **0.104** | 1.23 | 11.85 | 574 | No | 10 | Apache 2.0 |
+| **Bark** | ~1B | **0.966** | 13.13 | 13.60 | 4,279 | Yes | 13 | MIT |
+| Dia | 1.6B | — | — | — | — | Yes | 1 | Apache 2.0 |
+| F5-TTS | 330M | — | — | — | — | Yes | Multi | CC-BY-NC |
+| *...38 more engines planned* | | | | | | | | |
+
+### Audio Samples
+
+The following samples were generated from the same input text:
+
+> *"Artificial intelligence has made remarkable progress in speech synthesis. Modern text to speech systems can now produce speech that is nearly indistinguishable from human recordings."*
+
+#### Kokoro (82M params, RTF 0.104)
+
+https://github.com/user-attachments/assets/kokoro-placeholder
+
+<audio controls src="benchmarks/audio_samples/kokoro_benchmark.wav"></audio>
+
+[Download kokoro_benchmark.wav](benchmarks/audio_samples/kokoro_benchmark.wav)
+
+#### Bark (~1B params, RTF 0.966)
+
+https://github.com/user-attachments/assets/bark-placeholder
+
+<audio controls src="benchmarks/audio_samples/bark_benchmark.wav"></audio>
+
+[Download bark_benchmark.wav](benchmarks/audio_samples/bark_benchmark.wav)
+
+> More audio samples will be added as engines are tested.
 
 ## Supported Engines
 
 | # | Engine | Params | Architecture | License | Status |
 |---|--------|--------|-------------|---------|--------|
-| 1 | Kokoro | 82M | StyleTTS-inspired | Apache 2.0 | Testing |
-| 2 | Dia | 1.6B | DAC + Transformer | Apache 2.0 | Planned |
-| 3 | Orpheus | 150M-3B | Llama-based | Apache 2.0 | Planned |
-| 4 | F5-TTS | 330M | Flow Matching + DiT | CC-BY-NC / MIT | Planned |
+| 1 | Kokoro | 82M | StyleTTS-inspired | Apache 2.0 | **Tested** |
+| 2 | Bark | ~1B | GPT-style generative | MIT | **Tested** |
+| 3 | Dia | 1.6B | DAC + Transformer | Apache 2.0 | Adapter ready |
+| 4 | F5-TTS | 330M | Flow Matching + DiT | CC-BY-NC / MIT | Adapter ready |
 | 5 | Fish Speech | 500M | VQGAN + LLM | Apache 2.0 | Planned |
 | 6 | CosyVoice | 0.5B | LLM + Flow Matching | Apache 2.0 | Planned |
 | 7 | GPT-SoVITS | 300M+ | GPT + SoVITS | MIT | Planned |
-| 8 | ChatTTS | - | Transformer | CC-BY-NC | Planned |
-| 9 | Bark | 1B | GPT-style | MIT | Planned |
+| 8 | ChatTTS | — | Transformer | CC-BY-NC | Planned |
+| 9 | Orpheus | 150M-3B | Llama-based | Apache 2.0 | Planned |
 | 10 | XTTS v2 | 450M | GPT + VITS | MPL 2.0 | Planned |
 | 11 | StyleTTS 2 | 150-200M | Style Diffusion | MIT | Planned |
 | 12 | Parler-TTS | 880M | DAC + Transformer | Apache 2.0 | Planned |

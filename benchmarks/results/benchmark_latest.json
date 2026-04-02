@@ -1,0 +1,32 @@
+[
+  {
+    "engine": "kokoro",
+    "model": "Kokoro-82M",
+    "params": "82M",
+    "load_time": 5.21,
+    "duration": 11.85,
+    "inference_time": 1.23,
+    "rtf": 0.1041,
+    "sample_rate": 24000,
+    "vram_mb": 574,
+    "voice_cloning": false,
+    "languages": "10",
+    "license": "Apache 2.0",
+    "status": "pass"
+  },
+  {
+    "engine": "bark",
+    "model": "Bark",
+    "params": "~1B",
+    "load_time": 11.43,
+    "duration": 13.6,
+    "inference_time": 13.13,
+    "rtf": 0.9655,
+    "sample_rate": 24000,
+    "vram_mb": 4279,
+    "voice_cloning": true,
+    "languages": "13",
+    "license": "MIT",
+    "status": "pass"
+  }
+]

@@ -43,7 +43,6 @@ jobs:
           enable-cache: true
       - name: Install
         run: |
-          uv venv
           uv pip install --index-url https://download.pytorch.org/whl/cpu torch
           uv pip install -e ".[dev]"
       - name: Run tests

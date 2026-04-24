@@ -69,21 +69,19 @@ def synthesize(
 @app.command()
 def benchmark(
     engines: Optional[list[str]] = typer.Option(None, "--engine", "-e", help="Engines to benchmark (can repeat). Default: all"),
-    text: str = typer.Option(
-        "The quick brown fox jumps over the lazy dog. This is a benchmark test for text to speech synthesis quality and speed.",
-        "--text", "-t",
-        help="Text to benchmark with",
-    ),
-    output_dir: Path = typer.Option("benchmarks/results", "--output-dir", help="Output directory"),
+    text: Optional[str] = typer.Option(None, "--text", "-t", help="Text to benchmark with"),
+    results_dir: Path = typer.Option("benchmarks/results", "--results-dir"),
+    samples_dir: Path = typer.Option("benchmarks/audio_samples", "--samples-dir"),
     device: str = typer.Option("auto", "--device", "-d", help="Device: auto, cuda, cpu"),
 ) -> None:
     """Run benchmarks across TTS engines."""
-    from tts_bench.benchmarks.runner import run_benchmark
+    from tts_bench.benchmarks.runner import DEFAULT_TEXT, run_benchmark
 
     run_benchmark(
         engine_names=engines,
-        text=text,
-        output_dir=output_dir,
+        text=text or DEFAULT_TEXT,
+        results_dir=results_dir,
+        samples_dir=samples_dir,
         device=device,
     )
 

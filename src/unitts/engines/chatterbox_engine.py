@@ -7,8 +7,8 @@ from typing import Any
 
 import numpy as np
 
-from tts_bench.engines.base import TTSEngine, TTSResult
-from tts_bench.engines.registry import register_engine
+from unitts.engines.base import TTSEngine, TTSResult
+from unitts.engines.registry import register_engine
 
 
 @register_engine

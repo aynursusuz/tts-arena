@@ -10,8 +10,8 @@ from typing import Any
 
 import numpy as np
 
-from tts_bench.engines.base import TTSEngine, TTSResult
-from tts_bench.engines.registry import register_engine
+from unitts.engines.base import TTSEngine, TTSResult
+from unitts.engines.registry import register_engine
 
 _HF_REPO = "fishaudio/s2-pro"
 _PRECISION_MAP = {"bfloat16": "bfloat16", "float16": "float16", "half": "float16"}

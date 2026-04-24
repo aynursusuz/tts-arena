@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from tts_bench.engines.base import TTSEngine, TTSResult
-from tts_bench.engines.registry import ENGINE_REGISTRY, list_engines, register_engine
+from unitts.engines.base import TTSEngine, TTSResult
+from unitts.engines.registry import ENGINE_REGISTRY, list_engines, register_engine
 
 
 def test_tts_result_rtf():

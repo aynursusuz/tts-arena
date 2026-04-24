@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "tts-bench"
+name = "unitts"
 version = "0.1.0"
 description = "A Python toolkit for running and comparing open-source TTS models."
 readme = "README.md"
@@ -38,12 +38,12 @@ fish-audio = [
 dev = ["pytest>=8.0", "ruff>=0.5"]
 
 [project.scripts]
-tts-bench = "tts_bench.cli:app"
+unitts = "unitts.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/aynursusuz/tts-bench"
-Repository = "https://github.com/aynursusuz/tts-bench"
-Issues = "https://github.com/aynursusuz/tts-bench/issues"
+Homepage = "https://github.com/aynursusuz/unitts"
+Repository = "https://github.com/aynursusuz/unitts"
+Issues = "https://github.com/aynursusuz/unitts/issues"
 
 [tool.ruff]
 target-version = "py310"
@@ -62,4 +62,4 @@ addopts = "-ra -q"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/tts_bench"]
+packages = ["src/unitts"]

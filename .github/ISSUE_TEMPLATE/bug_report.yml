@@ -30,6 +30,6 @@ body:
         - Python version:
         - GPU:
         - CUDA version:
-        - tts-bench version:
+        - unitts version:
     validations:
       required: true

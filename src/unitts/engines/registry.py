@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from tts_bench.engines.base import TTSEngine
+from unitts.engines.base import TTSEngine
 
 ENGINE_REGISTRY: dict[str, type[TTSEngine]] = {}
 

@@ -11,7 +11,7 @@ from typing import Any
 from rich.console import Console
 from rich.table import Table
 
-from tts_bench.engines import ENGINE_REGISTRY, get_engine
+from unitts.engines import ENGINE_REGISTRY, get_engine
 
 console = Console()
 

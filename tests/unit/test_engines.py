@@ -1,7 +1,7 @@
 """Tests for engine registry and base class."""
 
-from tts_arena.engines.base import TTSEngine, TTSResult
-from tts_arena.engines.registry import ENGINE_REGISTRY, list_engines, register_engine
+from tts_bench.engines.base import TTSEngine, TTSResult
+from tts_bench.engines.registry import ENGINE_REGISTRY, list_engines, register_engine
 
 import numpy as np
 

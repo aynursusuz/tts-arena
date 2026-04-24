@@ -1,181 +1,70 @@
-<p align="center">
-  <h1 align="center">TTS Arena</h1>
-  <p align="center">
-    A unified toolkit for benchmarking and running inference across <b>all</b> open-source TTS models.
-  </p>
-</p>
+# tts-bench
 
-<p align="center">
-  <a href="https://github.com/aynursusuz/tts-arena/actions/workflows/ci.yml"><img src="https://github.com/aynursusuz/tts-arena/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
-  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="Python"></a>
-  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff"></a>
-</p>
+A small Python toolkit for running and comparing open-source TTS models through one interface. Models are added one at a time. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
----
-
-## Why TTS Arena?
-
-The open-source TTS landscape has exploded — there are now **40+ models** across different architectures, languages, and capabilities. TTS Arena provides:
-
-- **One unified interface** to run any TTS model with the same 3 lines of code
-- **Fair benchmarks** — same text, same hardware, same metrics
-- **Easy comparison** — latency, RTF, VRAM usage, audio quality side-by-side
-- **Step-by-step installation** — only install the engines you need
-
-## Benchmark Results
-
-> Measured on NVIDIA H100 PCIe (81GB), CUDA 12.2, Python 3.12. RTF = Real-Time Factor (lower is faster).
-
-| Engine | Params | RTF | Inference (s) | Audio (s) | VRAM (MB) | Voice Clone | Languages | License |
-|--------|--------|-----|---------------|-----------|-----------|-------------|-----------|---------|
-| **Kokoro** | 82M | **0.104** | 1.23 | 11.85 | 574 | No | 10 | Apache 2.0 |
-| **Bark** | ~1B | **0.966** | 13.13 | 13.60 | 4,279 | Yes | 13 | MIT |
-| Dia | 1.6B | — | — | — | — | Yes | 1 | Apache 2.0 |
-| F5-TTS | 330M | — | — | — | — | Yes | Multi | CC-BY-NC |
-| *...38 more engines planned* | | | | | | | | |
-
-### Audio Samples
-
-All samples generated from the same input text:
-
-> *"Artificial intelligence has made remarkable progress in speech synthesis. Modern text to speech systems can now produce speech that is nearly indistinguishable from human recordings."*
-
-#### Kokoro (82M params — RTF 0.104 — 574 MB VRAM)
-
-https://github.com/aynursusuz/tts-arena/raw/main/benchmarks/audio_samples/kokoro_benchmark.mp4
-
-#### Bark (~1B params — RTF 0.966 — 4,279 MB VRAM)
-
-https://github.com/aynursusuz/tts-arena/raw/main/benchmarks/audio_samples/bark_benchmark.mp4
-
-> More samples will be added as engines are tested.
-
-## Supported Engines
-
-| # | Engine | Params | Architecture | License | Status |
-|---|--------|--------|-------------|---------|--------|
-| 1 | Kokoro | 82M | StyleTTS-inspired | Apache 2.0 | **Tested** |
-| 2 | Bark | ~1B | GPT-style generative | MIT | **Tested** |
-| 3 | Dia | 1.6B | DAC + Transformer | Apache 2.0 | Adapter ready |
-| 4 | F5-TTS | 330M | Flow Matching + DiT | CC-BY-NC / MIT | Adapter ready |
-| 5 | Fish Speech | 500M | VQGAN + LLM | Apache 2.0 | Planned |
-| 6 | CosyVoice | 0.5B | LLM + Flow Matching | Apache 2.0 | Planned |
-| 7 | GPT-SoVITS | 300M+ | GPT + SoVITS | MIT | Planned |
-| 8 | ChatTTS | — | Transformer | CC-BY-NC | Planned |
-| 9 | Orpheus | 150M-3B | Llama-based | Apache 2.0 | Planned |
-| 10 | XTTS v2 | 450M | GPT + VITS | MPL 2.0 | Planned |
-| 11 | StyleTTS 2 | 150-200M | Style Diffusion | MIT | Planned |
-| 12 | Parler-TTS | 880M | DAC + Transformer | Apache 2.0 | Planned |
-| 13 | Piper | 15-60M | VITS (ONNX) | GPL 3.0 | Planned |
-| 14 | Zonos | 1.6B | SSM Hybrid | Apache 2.0 | Planned |
-| 15 | Spark-TTS | 0.5B | Qwen2.5 LLM | Apache 2.0 | Planned |
-| 16 | Qwen3-TTS | 0.6-1.7B | LLM | Apache 2.0 | Planned |
-| 17 | Sesame CSM | 1B | Llama + Audio | Apache 2.0 | Planned |
-| 18 | Chatterbox | 350M-1B | Multi-variant | MIT | Planned |
-| 19 | OpenVoice | 50-100M | Voice Cloning | MIT | Planned |
-| 20 | OuteTTS | 0.5-1B | Pure LLM | Apache 2.0 | Planned |
-| ... | *and 20+ more* | | | | Planned |
-
-## Installation
+## Install
 
 ```bash
-# Base installation
-pip install tts-arena
-
-# Or install from source
-git clone https://github.com/aynursusuz/tts-arena.git
-cd tts-arena
-pip install -e .
-
-# Install specific engines (only install what you need)
-pip install tts-arena[kokoro]         # Kokoro (82M, lightweight)
-pip install tts-arena[dia]            # Dia (1.6B, dialogue)
-pip install tts-arena[f5tts]          # F5-TTS (flow matching)
-pip install tts-arena[all]            # All engines
+pip install -e ".[chatterbox]"
 ```
 
-## Quickstart
+Drop the extra for the base scaffold; add `dev` for tests and lint.
 
-### Python API
+> Chatterbox currently pulls `perth`, which requires `pkg_resources`. On setuptools ≥ 80 install `"setuptools<80"` in the same env.
+
+## Quickstart: Chatterbox
 
 ```python
-from tts_arena.engines import get_engine
+from tts_bench.engines import get_engine
 
-# Load any engine with 2 lines
-engine = get_engine("kokoro")
-engine.ensure_loaded()
-
-# Synthesize speech
-result = engine.synthesize("Hello! Welcome to TTS Arena.")
-print(f"Duration: {result.duration_seconds:.2f}s, RTF: {result.real_time_factor:.3f}")
-
-# Save to file
-engine.synthesize_to_file("Hello world!", "output.wav")
+engine = get_engine("chatterbox")
+engine.synthesize_to_file("Hello world!", "out.wav")
 ```
 
-### CLI
+CLI:
 
 ```bash
-# List all available engines
-tts-arena list-engines
-
-# Synthesize with a specific engine
-tts-arena synthesize "Hello world!" --engine kokoro --output hello.wav
-
-# Run benchmarks
-tts-arena benchmark --engine kokoro --engine dia --engine f5tts
+tts-bench list-engines
+tts-bench synthesize "Hello world!" --engine chatterbox --output out.wav
+tts-bench benchmark --engine chatterbox
 ```
 
-## Project Structure
+Benchmark JSON and WAVs are written to `benchmarks/results/` and `benchmarks/audio_samples/`.
+
+## Results
+
+| Engine | GPU | RTF | Inference (s) | Audio (s) | VRAM (MB) | Sample rate |
+|--------|-----|-----|---------------|-----------|-----------|-------------|
+| Chatterbox | A100 80GB | 0.437 | 5.90 | 13.52 | 3,107 | 24 000 |
+
+Full JSON: [`benchmarks/results/chatterbox.json`](benchmarks/results/chatterbox.json).  Audio: [`benchmarks/audio_samples/chatterbox.wav`](benchmarks/audio_samples/chatterbox.wav).
+
+## Engines
+
+| Engine | License | Status |
+|--------|---------|--------|
+| Chatterbox | MIT | Integrated |
+
+## Structure
 
 ```
-tts-arena/
-├── src/tts_arena/
-│   ├── engines/          # TTS engine adapters (one file per model)
-│   │   ├── base.py       # Abstract TTSEngine class
-│   │   ├── registry.py   # Engine discovery & instantiation
-│   │   ├── kokoro.py     # Kokoro adapter
-│   │   └── ...           # More engines added incrementally
-│   ├── benchmarks/       # Benchmark runner & metrics
-│   ├── datasets/         # Standard test sentences (multi-language)
-│   ├── reporting/        # Results formatting
-│   └── cli.py            # Typer CLI
-├── benchmarks/results/   # Stored benchmark data
-├── tests/                # Unit & integration tests
-├── examples/             # Usage examples
-└── docs/                 # Documentation
+src/tts_bench/
+├── engines/        # one file per model, registered via @register_engine
+│   ├── base.py
+│   ├── registry.py
+│   └── chatterbox_engine.py
+├── benchmarks/
+├── datasets/
+└── cli.py
 ```
 
-## Adding a New Engine
+## Adding a model
 
-```python
-from tts_arena.engines.base import TTSEngine, TTSResult
-from tts_arena.engines.registry import register_engine
-
-@register_engine
-class MyEngine(TTSEngine):
-    name = "my-engine"
-    description = "My custom TTS engine"
-    languages = ["en"]
-
-    def load_model(self):
-        # Load your model here
-        self.model = ...
-        self._loaded = True
-
-    def synthesize(self, text, **kwargs):
-        self.ensure_loaded()
-        # Run inference and return TTSResult
-        ...
-```
-
-## Contributing
-
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+1. Create `src/tts_bench/engines/<name>_engine.py`
+2. Subclass `TTSEngine`, implement `load_model()` and `synthesize()`, decorate with `@register_engine`
+3. Add the package to `pyproject.toml` under `[project.optional-dependencies]`
+4. Add a test under `tests/unit/`
 
 ## License
 
-This project is licensed under the Apache License 2.0 — see [LICENSE](LICENSE) for details.
-
-Individual TTS models may have their own licenses. Check each engine's documentation for details.
+Apache 2.0. See [LICENSE](LICENSE). Individual TTS models carry their own licenses.

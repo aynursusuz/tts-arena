@@ -3,7 +3,7 @@
 import pytest
 import numpy as np
 
-from tts_arena.engines.base import TTSResult
+from tts_bench.engines.base import TTSResult
 
 
 @pytest.fixture

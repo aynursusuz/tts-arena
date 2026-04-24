@@ -30,12 +30,7 @@ class TTSResult:
 
 
 class TTSEngine(ABC):
-    """Abstract base class for TTS engines.
-
-    All TTS model adapters must inherit from this class and implement
-    the required methods. This ensures a consistent interface across
-    all 40+ supported TTS models.
-    """
+    """Abstract base class for TTS engines."""
 
     name: str = "base"
     description: str = ""

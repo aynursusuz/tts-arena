@@ -1,10 +1,10 @@
-"""Engine registry — discover and instantiate TTS engines by name."""
+"""Engine registry."""
 
 from __future__ import annotations
 
 from typing import Any
 
-from tts_arena.engines.base import TTSEngine
+from tts_bench.engines.base import TTSEngine
 
 ENGINE_REGISTRY: dict[str, type[TTSEngine]] = {}
 

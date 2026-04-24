@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "tts-arena"
+name = "tts-bench"
 version = "0.1.0"
-description = "A unified toolkit for benchmarking and running inference across all open-source TTS models"
+description = "A Python toolkit for running and comparing open-source TTS models."
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.10"
@@ -14,69 +14,32 @@ authors = [
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Multimedia :: Sound/Audio :: Speech",
 ]
 dependencies = [
     "numpy>=1.24",
     "soundfile>=0.12",
     "torch>=2.0",
-    "torchaudio>=2.0",
     "rich>=13.0",
     "typer>=0.9",
-    "pydantic>=2.0",
-    "librosa>=0.10",
-    "pandas>=2.0",
-    "tqdm>=4.65",
 ]
 
 [project.optional-dependencies]
-# Individual engine extras — install only what you need
-kokoro = ["kokoro>=0.9", "sounddevice"]
-dia = ["dia-tts>=0.1"]
-orpheus = ["vllm>=0.4", "transformers>=4.40"]
-f5tts = ["f5-tts>=0.3"]
-bark = ["suno-bark>=0.1"]
-coqui = ["coqui-tts>=0.24"]
-chattts = ["ChatTTS>=0.2"]
-piper = ["piper-tts>=1.2"]
-cosyvoice = ["cosyvoice>=0.1"]
-parler = ["parler-tts>=0.2"]
-styletts2 = ["styletts2>=0.1"]
-fish = ["fish-speech>=1.5"]
-openvoice = ["openvoice>=0.1"]
-outetts = ["outetts>=0.3"]
-zonos = ["zonos>=0.1"]
-
-# Bundles
-all = ["tts-arena[kokoro,dia,orpheus,f5tts,bark,coqui,chattts,piper,parler,fish,openvoice,outetts,zonos]"]
-dev = [
-    "pytest>=8.0",
-    "pytest-cov>=5.0",
-    "mypy>=1.10",
-    "ruff>=0.5",
-    "pre-commit>=3.7",
-]
-docs = [
-    "mkdocs-material>=9.5",
-    "mkdocstrings[python]>=0.25",
-]
+chatterbox = ["chatterbox-tts"]
+dev = ["pytest>=8.0", "ruff>=0.5"]
 
 [project.scripts]
-tts-arena = "tts_arena.cli:app"
+tts-bench = "tts_bench.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/aynursusuz/tts-arena"
-Documentation = "https://aynursusuz.github.io/tts-arena"
-Repository = "https://github.com/aynursusuz/tts-arena"
-Issues = "https://github.com/aynursusuz/tts-arena/issues"
-Changelog = "https://github.com/aynursusuz/tts-arena/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/aynursusuz/tts-bench"
+Repository = "https://github.com/aynursusuz/tts-bench"
+Issues = "https://github.com/aynursusuz/tts-bench/issues"
 
 [tool.ruff]
 target-version = "py310"
@@ -85,17 +48,9 @@ line-length = 100
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP", "B", "A", "SIM"]
 
-[tool.mypy]
-python_version = "3.10"
-warn_return_any = true
-warn_unused_configs = true
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra -q"
 
-[tool.coverage.run]
-source = ["tts_arena"]
-
 [tool.hatch.build.targets.wheel]
-packages = ["src/tts_arena"]
+packages = ["src/tts_bench"]

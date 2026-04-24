@@ -2,28 +2,11 @@ name: Bug Report
 description: Report a bug or issue
 labels: ["bug"]
 body:
-  - type: dropdown
+  - type: input
     id: engine
     attributes:
-      label: TTS Engine
-      description: Which engine is affected?
-      options:
-        - All engines
-        - kokoro
-        - dia
-        - orpheus
-        - f5-tts
-        - bark
-        - coqui/xtts
-        - chattts
-        - cosyvoice
-        - fish-speech
-        - gpt-sovits
-        - piper
-        - styletts2
-        - Other
-    validations:
-      required: true
+      label: Engine
+      description: Which engine is affected (leave blank if not engine-specific)?
   - type: textarea
     id: description
     attributes:
@@ -47,6 +30,6 @@ body:
         - Python version:
         - GPU:
         - CUDA version:
-        - tts-arena version:
+        - tts-bench version:
     validations:
       required: true

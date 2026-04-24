@@ -1,4 +1,4 @@
-"""Benchmark runner — orchestrates TTS engine evaluation."""
+"""Benchmark runner."""
 
 from __future__ import annotations
 
@@ -8,11 +8,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-import numpy as np
 from rich.console import Console
 from rich.table import Table
 
-from tts_arena.engines import ENGINE_REGISTRY, get_engine
+from tts_bench.engines import ENGINE_REGISTRY, get_engine
 
 console = Console()
 

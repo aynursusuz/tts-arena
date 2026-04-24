@@ -30,13 +30,8 @@ Thumbs.db
 htmlcov/
 .mypy_cache/
 
-# Audio outputs (keep structure, ignore generated files)
-benchmarks/results/*.json
-!benchmarks/results/benchmark_latest.json
-!benchmarks/results/.gitkeep
-!benchmarks/audio_samples/.gitkeep
-
-# Model cache
+# HuggingFace / model cache
+.hf_cache/
 models/
 *.pt
 *.pth
@@ -47,4 +42,3 @@ models/
 # Misc
 *.log
 .env
-asset/

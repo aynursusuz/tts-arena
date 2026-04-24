@@ -1,4 +1,4 @@
-"""CLI interface for TTS Arena."""
+"""CLI for tts-bench."""
 
 from __future__ import annotations
 
@@ -10,8 +10,8 @@ from rich.console import Console
 from rich.table import Table
 
 app = typer.Typer(
-    name="tts-arena",
-    help="A unified toolkit for benchmarking all open-source TTS models.",
+    name="tts-bench",
+    help="Run and compare open-source TTS models.",
     add_completion=False,
 )
 console = Console()
@@ -20,7 +20,7 @@ console = Console()
 @app.command()
 def list_engines() -> None:
     """List all available TTS engines."""
-    from tts_arena.engines import list_engines as _list
+    from tts_bench.engines import list_engines as _list
 
     engines = _list()
     table = Table(title="Available TTS Engines")
@@ -51,7 +51,7 @@ def synthesize(
     device: str = typer.Option("auto", "--device", "-d", help="Device: auto, cuda, cpu"),
 ) -> None:
     """Synthesize speech from text using a specified engine."""
-    from tts_arena.engines import get_engine
+    from tts_bench.engines import get_engine
 
     console.print(f"[cyan]Loading engine:[/cyan] {engine}")
     tts = get_engine(engine, device=device)
@@ -78,7 +78,7 @@ def benchmark(
     device: str = typer.Option("auto", "--device", "-d", help="Device: auto, cuda, cpu"),
 ) -> None:
     """Run benchmarks across TTS engines."""
-    from tts_arena.benchmarks.runner import run_benchmark
+    from tts_bench.benchmarks.runner import run_benchmark
 
     run_benchmark(
         engine_names=engines,

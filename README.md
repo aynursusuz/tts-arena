@@ -27,13 +27,14 @@ uv venv --python 3.12 && source .venv/bin/activate
 # Base install (no engines)
 uv pip install -e .
 
-# With a specific engine
+# Install only the engines you need
 uv pip install -e ".[chatterbox]"
+uv pip install -e ".[fish-audio]"
 ```
 
-Each engine ships as its own extra. Install only the ones you need.
-
-> Chatterbox depends on `perth`, which still imports `pkg_resources`. On setuptools 80 or newer, also run `uv pip install "setuptools<80"` in the same environment.
+> Chatterbox depends on `perth`, which still imports `pkg_resources`. On setuptools 80 or newer, also run `uv pip install "setuptools<80"`.
+>
+> Fish Audio pulls `fish-speech` from its GitHub repo (not on PyPI). `fish-speech` and `chatterbox-tts` currently pin different `torch` versions, so install them in separate environments.
 
 ## Inference
 
@@ -47,9 +48,11 @@ engine.synthesize_to_file("Hello world!", "out.wav")
 Every engine exposes the same interface. Swap by changing the name:
 
 ```python
-engine = get_engine("chatterbox")
-# engine = get_engine("<next-engine>")
+engine = get_engine("chatterbox")     # local, MIT
+engine = get_engine("fish-audio")     # local, s2-pro weights, non-commercial
 ```
+
+First call to `fish-audio` downloads the 11 GB s2-pro checkpoint from HuggingFace into the default HF cache. Set `FISH_S2_PRO_DIR` to point at an existing local copy.
 
 ### CLI
 
@@ -63,17 +66,19 @@ tts-bench benchmark --engine chatterbox
 
 ## Engines
 
-| Engine | Voice cloning | License | Status |
-|--------|:-------------:|---------|--------|
-| [Chatterbox](https://github.com/resemble-ai/chatterbox) | yes | MIT | integrated |
+| Engine | Type | Voice cloning | License | Status |
+|--------|------|:-------------:|---------|--------|
+| [Chatterbox](https://github.com/resemble-ai/chatterbox) | local | yes | MIT | integrated |
+| [Fish Audio s2-pro](https://huggingface.co/fishaudio/s2-pro) | local | yes | Fish Audio Research License | integrated |
 
 ## Benchmark
 
 | Engine | RTF | Inference (s) | Audio (s) | VRAM (MB) | Sample rate |
 |--------|-----|---------------|-----------|-----------|-------------|
 | Chatterbox | **0.44** | 5.90 | 13.52 | 3,107 | 24,000 |
+| Fish Audio s2-pro | 4.00 | 38.29 | 9.57 | 19,105 | 44,100 |
 
-*RTF (real-time factor) = inference time / audio duration. Lower is faster.* Full results: [`benchmarks/results/chatterbox.json`](benchmarks/results/chatterbox.json). Audio sample: [`benchmarks/audio_samples/chatterbox.wav`](benchmarks/audio_samples/chatterbox.wav).
+*RTF (real-time factor) = inference time / audio duration. Lower is faster.* Fish Audio measurements are without `--compile`; upstream documents ~5x speedup after kernel fusion. Full results: [`benchmarks/results/`](benchmarks/results/). Audio samples: [`benchmarks/audio_samples/`](benchmarks/audio_samples/).
 
 ## Adding an engine
 
@@ -84,4 +89,6 @@ tts-bench benchmark --engine chatterbox
 
 ## License
 
-Apache 2.0. See [LICENSE](LICENSE). Each integrated model keeps its own upstream license.
+tts-bench itself is Apache 2.0 (see [LICENSE](LICENSE)). Each integrated model keeps its own upstream license; by invoking an engine you agree to the terms of its model. Third-party model notices are listed in [NOTICE](NOTICE).
+
+**Built with Fish Audio.** The `fish-audio` engine uses Fish Audio s2-pro weights under the Fish Audio Research License (non-commercial). Commercial use of that engine requires a separate license from Fish Audio.

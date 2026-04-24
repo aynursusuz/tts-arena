@@ -1,0 +1,14 @@
+{
+  "engine": "fish-audio",
+  "status": "success",
+  "text": "When the sunlight strikes raindrops in the air, they act as a prism and form a rainbow. The rainbow is a division of white light into many beautiful colors.",
+  "duration_seconds": 9.567,
+  "inference_time_seconds": 38.289,
+  "real_time_factor": 4.0023,
+  "load_time_seconds": 49.166,
+  "sample_rate": 44100,
+  "vram_after_load_mb": 19088.4,
+  "vram_after_inference_mb": 19105.0,
+  "audio_file": "benchmarks/audio_samples/fish-audio.wav",
+  "timestamp": "2026-04-24T13:17:12.975415+00:00"
+}

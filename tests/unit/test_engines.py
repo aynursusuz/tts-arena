@@ -1,9 +1,9 @@
 """Tests for engine registry and base class."""
 
+import numpy as np
+
 from tts_bench.engines.base import TTSEngine, TTSResult
 from tts_bench.engines.registry import ENGINE_REGISTRY, list_engines, register_engine
-
-import numpy as np
 
 
 def test_tts_result_rtf():
@@ -60,7 +60,6 @@ def test_register_engine():
     assert result.engine_name == "dummy"
     assert result.audio.shape == (24000,)
 
-    # Cleanup
     del ENGINE_REGISTRY["dummy"]
 
 

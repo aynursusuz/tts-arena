@@ -27,7 +27,12 @@ class ChatterboxEngine(TTSEngine):
         self.model = ChatterboxTTS.from_pretrained(device=self.device)
         self.default_sample_rate = getattr(self.model, "sr", self.default_sample_rate)
 
-    def synthesize(self, text: str, audio_prompt_path: str | None = None, **kwargs: Any) -> TTSResult:
+    def synthesize(
+        self,
+        text: str,
+        audio_prompt_path: str | None = None,
+        **kwargs: Any,
+    ) -> TTSResult:
         self.ensure_loaded()
 
         start = time.perf_counter()

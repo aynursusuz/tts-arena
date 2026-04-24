@@ -1,7 +1,7 @@
 """Shared test fixtures."""
 
-import pytest
 import numpy as np
+import pytest
 
 from tts_bench.engines.base import TTSResult
 

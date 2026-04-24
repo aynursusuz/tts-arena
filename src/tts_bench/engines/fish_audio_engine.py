@@ -38,8 +38,20 @@ class FishAudioEngine(TTSEngine):
     url = "https://huggingface.co/fishaudio/s2-pro"
     license = "Fish Audio Research License"
     languages = [
-        "en", "zh", "ja", "ko", "es", "pt", "ar", "ru", "fr",
-        "de", "it", "tr", "nl", "pl",
+        "en",
+        "zh",
+        "ja",
+        "ko",
+        "es",
+        "pt",
+        "ar",
+        "ru",
+        "fr",
+        "de",
+        "it",
+        "tr",
+        "nl",
+        "pl",
     ]
     supports_voice_cloning = True
     supports_streaming = True
@@ -49,22 +61,18 @@ class FishAudioEngine(TTSEngine):
         self,
         checkpoint_dir: str | Path | None = None,
         precision: str = "bfloat16",
-        compile: bool = False,
+        use_compile: bool = False,
         **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
         env_dir = os.environ.get("FISH_S2_PRO_DIR")
         self.checkpoint_dir = (
-            Path(checkpoint_dir)
-            if checkpoint_dir
-            else (Path(env_dir) if env_dir else None)
+            Path(checkpoint_dir) if checkpoint_dir else (Path(env_dir) if env_dir else None)
         )
         if precision not in _PRECISION_MAP:
-            raise ValueError(
-                f"precision must be one of {list(_PRECISION_MAP)}, got {precision!r}"
-            )
+            raise ValueError(f"precision must be one of {list(_PRECISION_MAP)}, got {precision!r}")
         self.precision_name = _PRECISION_MAP[precision]
-        self.compile = compile
+        self.use_compile = use_compile
 
     def load_model(self) -> None:
         import torch
@@ -85,7 +93,7 @@ class FishAudioEngine(TTSEngine):
             checkpoint_path=self.checkpoint_dir,
             device=self.device,
             precision=precision_dtype,
-            compile=self.compile,
+            compile=self.use_compile,
         )
         decoder = load_decoder(
             config_name="modded_dac_vq",
@@ -95,7 +103,7 @@ class FishAudioEngine(TTSEngine):
         self.model = TTSInferenceEngine(
             llama_queue=llama_queue,
             decoder_model=decoder,
-            compile=self.compile,
+            compile=self.use_compile,
             precision=precision_dtype,
         )
 
@@ -133,9 +141,7 @@ class FishAudioEngine(TTSEngine):
         final = next((r for r in results if r.code == "final"), None)
         if final is None:
             err = next((r for r in results if r.code == "error"), None)
-            raise RuntimeError(
-                f"fish-audio inference failed: {err.error if err else 'no output'}"
-            )
+            raise RuntimeError(f"fish-audio inference failed: {err.error if err else 'no output'}")
 
         sample_rate, audio = final.audio
         if audio.dtype != np.float32:

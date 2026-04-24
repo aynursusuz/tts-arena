@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
+from typing import Annotated
 
 import typer
 from rich.console import Console
@@ -45,12 +45,14 @@ def list_engines() -> None:
 
 @app.command()
 def synthesize(
-    text: str = typer.Argument(..., help="Text to synthesize"),
-    engine: str = typer.Option(..., "--engine", "-e", help="TTS engine name"),
-    output: Path = typer.Option("output.wav", "--output", "-o", help="Output WAV file path"),
-    device: str = typer.Option("auto", "--device", "-d", help="Device: auto, cuda, cpu"),
+    text: Annotated[str, typer.Argument(help="Text to synthesize")],
+    engine: Annotated[str, typer.Option("--engine", "-e", help="TTS engine name")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Output WAV file")] = Path(
+        "output.wav"
+    ),
+    device: Annotated[str, typer.Option("--device", "-d", help="Device: auto, cuda, cpu")] = "auto",
 ) -> None:
-    """Synthesize speech from text using a specified engine."""
+    """Synthesize speech from text with the given engine."""
     from tts_bench.engines import get_engine
 
     console.print(f"[cyan]Loading engine:[/cyan] {engine}")
@@ -68,13 +70,16 @@ def synthesize(
 
 @app.command()
 def benchmark(
-    engines: Optional[list[str]] = typer.Option(None, "--engine", "-e", help="Engines to benchmark (can repeat). Default: all"),
-    text: Optional[str] = typer.Option(None, "--text", "-t", help="Text to benchmark with"),
-    results_dir: Path = typer.Option("benchmarks/results", "--results-dir"),
-    samples_dir: Path = typer.Option("benchmarks/audio_samples", "--samples-dir"),
-    device: str = typer.Option("auto", "--device", "-d", help="Device: auto, cuda, cpu"),
+    engines: Annotated[
+        list[str] | None,
+        typer.Option("--engine", "-e", help="Engines to benchmark (repeatable)"),
+    ] = None,
+    text: Annotated[str | None, typer.Option("--text", "-t", help="Text to benchmark with")] = None,
+    results_dir: Annotated[Path, typer.Option("--results-dir")] = Path("benchmarks/results"),
+    samples_dir: Annotated[Path, typer.Option("--samples-dir")] = Path("benchmarks/audio_samples"),
+    device: Annotated[str, typer.Option("--device", "-d")] = "auto",
 ) -> None:
-    """Run benchmarks across TTS engines."""
+    """Run benchmarks across the selected TTS engines."""
     from tts_bench.benchmarks.runner import DEFAULT_TEXT, run_benchmark
 
     run_benchmark(

@@ -27,14 +27,16 @@ def list_engines() -> list[dict[str, Any]]:
     """List all registered engines with their metadata."""
     engines = []
     for name, cls in sorted(ENGINE_REGISTRY.items()):
-        engines.append({
-            "name": name,
-            "description": cls.description,
-            "url": cls.url,
-            "license": cls.license,
-            "languages": cls.languages,
-            "voice_cloning": cls.supports_voice_cloning,
-            "streaming": cls.supports_streaming,
-            "emotion_control": cls.supports_emotion_control,
-        })
+        engines.append(
+            {
+                "name": name,
+                "description": cls.description,
+                "url": cls.url,
+                "license": cls.license,
+                "languages": cls.languages,
+                "voice_cloning": cls.supports_voice_cloning,
+                "streaming": cls.supports_streaming,
+                "emotion_control": cls.supports_emotion_control,
+            }
+        )
     return engines

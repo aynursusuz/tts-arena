@@ -56,5 +56,10 @@ select = ["E", "F", "I", "N", "UP", "B", "A", "SIM"]
 testpaths = ["tests"]
 addopts = "-ra -q"
 
+[tool.hatch.metadata]
+# Required for the fish-audio extra, which pulls fish-speech directly from
+# its GitHub repository (it is not on PyPI).
+allow-direct-references = true
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/tts_bench"]
